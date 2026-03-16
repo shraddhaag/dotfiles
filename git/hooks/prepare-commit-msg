@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Get the current branch name
+branch_name=$(git symbolic-ref --short HEAD)
+
+# The first argument ($1) is the name of the file containing the commit message
+commit_msg_file="$1"
+
+# Append the branch name to the message file
+echo "$branch_name: $(cat "$commit_msg_file")" > "$commit_msg_file"
+
+# Add Signed-off-by line (same as git commit -s)
+SOB=$(git var GIT_COMMITTER_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+grep -qs "^$SOB" "$commit_msg_file" || echo "$SOB" >> "$commit_msg_file"

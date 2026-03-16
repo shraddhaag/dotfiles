@@ -99,4 +99,8 @@ else
   ln -s "$DOTFILES_DIR/ghostty" "$GHOSTTY_CONFIG_DIR"
 fi
 
+# --- Git hooks (global) ---
+echo "==> Setting global git hooks path..."
+git config --global core.hooksPath "$DOTFILES_DIR/git/hooks"
+
 echo "==> Done! Open nvim to trigger plugin installation."

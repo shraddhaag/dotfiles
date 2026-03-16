@@ -47,7 +47,7 @@ fi
 if ! command -v ghostty &>/dev/null; then
   echo "==> Installing Ghostty..."
   sudo dnf copr enable -y pgdev/ghostty
-  sudo dnf install -y ghostty
+  sudo dnf install -y --allowerasing ghostty
 else
   echo "==> Ghostty already installed"
 fi
@@ -100,5 +100,9 @@ else
   mkdir -p "$HOME/.config"
   ln -s "$DOTFILES_DIR/ghostty-linux" "$GHOSTTY_CONFIG_DIR"
 fi
+
+# --- Git hooks (global) ---
+echo "==> Setting global git hooks path..."
+git config --global core.hooksPath "$DOTFILES_DIR/git/hooks"
 
 echo "==> Done! Open nvim to trigger plugin installation."
